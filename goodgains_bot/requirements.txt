@@ -1,0 +1,12 @@
+discord.py>=2.0.0
+python-dotenv
+requests
+web3
+eth-account
+eth-utils
+cryptography
+qrcode
+Pillow
+pyngrok
+psutil
+aiohttp

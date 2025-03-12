@@ -1,0 +1,57 @@
+2025-03-11 20:58:44,425 - goodgains_bot - INFO - Database initialized
+2025-03-11 20:59:23,815 - goodgains_bot - INFO - Database initialized
+2025-03-11 20:59:24,198 - goodgains_bot - INFO - General commands registered
+2025-03-11 20:59:24,198 - goodgains_bot - INFO - Betting commands registered
+2025-03-11 20:59:24,198 - goodgains_bot - INFO - Wallet commands registered
+2025-03-11 20:59:24,198 - goodgains_bot - INFO - Profile commands registered
+2025-03-11 20:59:24,199 - goodgains_bot - INFO - Admin commands registered
+2025-03-11 20:59:26,957 - goodgains_bot - INFO - Flask app exposed via ngrok: https://d337-181-44-118-20.ngrok-free.app
+2025-03-11 20:59:26,957 - goodgains_bot - INFO - Flask server started on port 8081
+2025-03-11 20:59:26,960 - goodgains_bot - INFO - Starting Discord bot...
+2025-03-11 20:59:30,239 - goodgains_bot - INFO - Resolving pending bets...
+2025-03-11 20:59:30,240 - goodgains_bot - WARNING - Found legacy synthetic match ID dota_76561198025084644_1740622408 - skipping automatic resolution
+2025-03-11 20:59:30,240 - goodgains_bot - WARNING - Found legacy synthetic match ID dota_76561198025084644_1740622767 - skipping automatic resolution
+2025-03-11 20:59:30,240 - goodgains_bot - WARNING - Found legacy synthetic match ID dota_76561198025084644_1740622797 - skipping automatic resolution
+2025-03-11 20:59:30,240 - goodgains_bot - INFO - Cleaning up stale matches...
+2025-03-11 20:59:30,240 - goodgains_bot - INFO - Cleaning expired wallet sessions...
+2025-03-11 20:59:30,242 - goodgains_bot - INFO - Maintaining match caches...
+2025-03-11 20:59:30,242 - goodgains_bot - INFO - Maintenance: Removed 0 old entries from recently_cleaned_matches
+2025-03-11 20:59:30,242 - goodgains_bot - INFO - Sending weekly summaries...
+2025-03-11 20:59:30,243 - goodgains_bot - INFO - Checking for inactive users...
+2025-03-11 20:59:30,244 - goodgains_bot - INFO - Logged in as GoodGains (ID: 1342990492052230245)
+2025-03-11 20:59:30,244 - goodgains_bot - INFO - ------
+2025-03-11 20:59:30,245 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 20:59:30,697 - goodgains_bot - INFO - Synced 19 command(s)
+2025-03-11 20:59:42,740 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 20:59:57,739 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 21:00:12,738 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 21:00:27,739 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 21:00:42,738 - goodgains_bot - ERROR - Error in check_game_activity task: no such table: steam_mappings
+2025-03-11 21:00:52,458 - goodgains_bot - INFO - Database initialized
+2025-03-11 21:00:52,824 - goodgains_bot - INFO - General commands registered
+2025-03-11 21:00:52,824 - goodgains_bot - INFO - Betting commands registered
+2025-03-11 21:00:52,824 - goodgains_bot - INFO - Wallet commands registered
+2025-03-11 21:00:52,824 - goodgains_bot - INFO - Profile commands registered
+2025-03-11 21:00:52,824 - goodgains_bot - INFO - Admin commands registered
+2025-03-11 21:00:53,560 - goodgains_bot - ERROR - Failed to set up ngrok: The ngrok process errored on start: authentication failed: Your account is limited to 1 simultaneous ngrok agent sessions.\nYou can run multiple simultaneous tunnels from a single agent session by defining the tunnels in your agent configuration file and starting them with the command `ngrok start --all`.\nRead more about the agent configuration file: https://ngrok.com/docs/secure-tunnels/ngrok-agent/reference/config\nYou can view your current agent sessions in the dashboard:\nhttps://dashboard.ngrok.com/agents\r\n\r\nERR_NGROK_108\r\n.
+2025-03-11 21:00:53,561 - goodgains_bot - INFO - Flask server started on port 8081
+2025-03-11 21:00:53,563 - goodgains_bot - INFO - Starting Discord bot...
+2025-03-11 21:00:56,903 - goodgains_bot - INFO - Resolving pending bets...
+2025-03-11 21:00:56,904 - goodgains_bot - INFO - Cleaning up stale matches...
+2025-03-11 21:00:56,904 - goodgains_bot - INFO - Cleaning expired wallet sessions...
+2025-03-11 21:00:56,905 - goodgains_bot - INFO - Maintaining match caches...
+2025-03-11 21:00:56,905 - goodgains_bot - INFO - Maintenance: Removed 0 old entries from recently_cleaned_matches
+2025-03-11 21:00:56,905 - goodgains_bot - INFO - Sending weekly summaries...
+2025-03-11 21:00:56,905 - goodgains_bot - INFO - Checking for inactive users...
+2025-03-11 21:00:56,906 - goodgains_bot - INFO - Logged in as GoodGains (ID: 1342990492052230245)
+2025-03-11 21:00:56,906 - goodgains_bot - INFO - ------
+2025-03-11 21:00:57,431 - goodgains_bot - INFO - Synced 19 command(s)
+2025-03-11 21:02:08,756 - goodgains_bot - INFO - Profile viewed for user 520710501227823106 by 520710501227823106
+2025-03-11 21:02:29,853 - goodgains_bot - INFO - Linked Discord user 520710501227823106 to Steam ID 76561198025084644
+2025-03-11 21:02:39,415 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 21:02:53,891 - goodgains_bot - INFO - User 520710501227823106 starting direct wallet connection for address 0x6795e7c882E32eb049d3b4f5CD4aDE9D8816a168
+2025-03-11 21:02:54,316 - goodgains_bot - INFO - User 520710501227823106 directly connected wallet 0x6795e7c882E32eb049d3b4f5CD4aDE9D8816a168
+2025-03-11 21:02:54,385 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 21:03:01,844 - goodgains_bot - INFO - Manual match check requested by user 520710501227823106 with Steam ID 76561198025084644
+2025-03-11 21:03:01,844 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
+2025-03-11 21:03:09,386 - goodgains_bot - INFO - Checking Dota 2 match status for user 520710501227823106 (account_id: 64818916)
