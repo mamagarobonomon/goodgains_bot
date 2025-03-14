@@ -33,6 +33,8 @@ class GoodGainsBot(commands.Bot):
         self.completed_matches = set()
         self.recently_cleaned_matches = {}
         self.potential_match_start = {}
+        self.game_state_cache = {}  # Track game state transitions
+        self.match_detection_confidence = {}  # Track confidence levels of match detection
 
         # Initialize API rate limiter
         self.api_limiter = ApiRateLimiter()

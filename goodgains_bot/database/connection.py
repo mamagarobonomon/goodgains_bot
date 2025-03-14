@@ -100,4 +100,33 @@ def initialize_database():
         )
         ''')
 
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS game_state_transitions (
+            user_id INTEGER NOT NULL,
+            match_id TEXT NOT NULL,
+            previous_state TEXT,
+            new_state TEXT,
+            timestamp INTEGER,
+            PRIMARY KEY (user_id, match_id, timestamp)
+        )
+        ''')
+
+        # SQLite requires careful alteration - check if columns exist first
+        columns = [row[1] for row in conn.execute("PRAGMA table_info(active_players)").fetchall()]
+
+        if 'detection_source' not in columns:
+            cursor.execute('ALTER TABLE active_players ADD COLUMN detection_source TEXT;')
+
+        if 'detection_confidence' not in columns:
+            cursor.execute('ALTER TABLE active_players ADD COLUMN detection_confidence INTEGER DEFAULT 0;')
+
+        if 'draft_detected_at' not in columns:
+            cursor.execute('ALTER TABLE active_players ADD COLUMN draft_detected_at INTEGER;')
+
+        if 'validated_at' not in columns:
+            cursor.execute('ALTER TABLE active_players ADD COLUMN validated_at INTEGER;')
+
+        if 'game_start_time' not in columns:
+            cursor.execute('ALTER TABLE active_players ADD COLUMN game_start_time INTEGER;')
+
         conn.commit()

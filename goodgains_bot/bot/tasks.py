@@ -6,6 +6,8 @@ from database.connection import get_db_connection
 from api.dota import get_match_details
 from bot.bot import active_players_lock
 from betting.resolver import resolve_match_team_win_bets, check_event_based_bets
+from gsi.handlers import cross_validate_match_detection
+
 
 logger = logging.getLogger('goodgains_bot')
 
@@ -68,7 +70,7 @@ async def check_game_activity(bot):
 
 
 async def check_dota2_match(bot, user_id, steam_id):
-    """Check if a user is in a Dota 2 match."""
+    """Enhanced check for Dota 2 matches with improved start detection."""
     from api.dota import get_match_history, get_live_league_games
     from utils.notifications import send_match_notification
 
@@ -77,7 +79,7 @@ async def check_dota2_match(bot, user_id, steam_id):
 
     current_time = int(datetime.now().timestamp())
 
-    # First check if user is already tracked in a match
+    # Check if user is already tracked in a match
     with get_db_connection() as conn:
         current_match = conn.execute(
             'SELECT match_id, match_start_time FROM active_players WHERE user_id = ?',
@@ -122,6 +124,9 @@ async def check_dota2_match(bot, user_id, steam_id):
 
                     logger.info(f"Found user {user_id} in league match {match_id}")
                     await update_player_match(bot, user_id, "570", match_id, team, "League Match")
+
+                    # Cross-validate with API
+                    await cross_validate_match_detection(bot, user_id, match_id, 'api')
                     return True
 
     # Check recent matches
@@ -144,31 +149,40 @@ async def check_dota2_match(bot, user_id, steam_id):
                         team = "team1" if player.get('player_slot', 0) < 128 else "team2"
                         logger.info(f"Found user {user_id} in active match {match_id}")
                         await update_player_match(bot, user_id, "570", match_id, team, "Public Match", start_time)
+
+                        # Cross-validate with API
+                        await cross_validate_match_detection(bot, user_id, match_id, 'api')
                         return True
 
     return False
 
 
 async def update_player_match(bot, user_id, game_id, match_id, team, match_type, match_start_time=None):
-    """Update the database and cache with player match information."""
-    # If no start time provided, use current time
-    if match_start_time is None:
-        match_start_time = int(datetime.now().timestamp())
+    """Enhanced update function with better start time detection."""
+    # Calculate start time
+    current_time = int(datetime.now().timestamp())
+    start_time = match_start_time or current_time
 
     try:
         # Check if we're already tracking this match for this user
         with get_db_connection() as conn:
             existing_match = conn.execute(
-                'SELECT match_id FROM active_players WHERE user_id = ?',
+                'SELECT match_id, match_start_time, game_start_time FROM active_players WHERE user_id = ?',
                 (user_id,)
             ).fetchone()
 
             # If already in this exact match, don't update or notify again
             if existing_match and existing_match['match_id'] == match_id:
+                # Use the most precise start time available
+                precise_start_time = existing_match['game_start_time'] or existing_match['match_start_time']
+
                 # Just update the last check time in the cache
                 with active_players_lock:
                     if user_id in bot.active_players_cache:
-                        bot.active_players_cache[user_id]['last_check_time'] = int(datetime.now().timestamp())
+                        bot.active_players_cache[user_id]['last_check_time'] = current_time
+                        if precise_start_time:
+                            bot.active_players_cache[user_id]['match_start_time'] = precise_start_time
+
                 logger.info(f"User {user_id} already being tracked in match {match_id}, skipping update")
                 return
 
@@ -179,8 +193,8 @@ async def update_player_match(bot, user_id, game_id, match_id, team, match_type,
 
             # Then insert the new match
             conn.execute(
-                'INSERT INTO active_players (user_id, game_id, match_id, team, match_start_time) VALUES (?, ?, ?, ?, ?)',
-                (user_id, game_id, match_id, team, match_start_time)
+                'INSERT INTO active_players (user_id, game_id, match_id, team, match_start_time, detection_source) VALUES (?, ?, ?, ?, ?, ?)',
+                (user_id, game_id, match_id, team, start_time, 'api')
             )
             conn.commit()
             logger.info(f"Database updated for user {user_id} in match {match_id}")
@@ -192,7 +206,7 @@ async def update_player_match(bot, user_id, game_id, match_id, team, match_type,
                 "game_id": game_id,
                 "match_id": match_id,
                 "team": team,
-                "match_start_time": match_start_time,
+                "match_start_time": start_time,
                 "last_check_time": current_time
             }
             logger.info(f"Cache updated for user {user_id} in match {match_id}")
@@ -205,7 +219,6 @@ async def update_player_match(bot, user_id, game_id, match_id, team, match_type,
 
     except Exception as e:
         logger.error(f"Error in update_player_match: {e}")
-
 
 @tasks.loop(minutes=5)
 async def resolve_bets(bot):

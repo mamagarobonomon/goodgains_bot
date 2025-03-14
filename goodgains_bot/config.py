@@ -45,3 +45,9 @@ if ENCRYPTION_KEY:
 else:
     logging.error("ENCRYPTION_KEY not found in .env")
     fernet = None
+
+
+# Match detection settings
+MATCH_DETECTION_POLL_INTERVAL = int(os.getenv("MATCH_DETECTION_POLL_INTERVAL", "15"))
+MATCH_DETECTION_CONFIDENCE_THRESHOLD = int(os.getenv("MATCH_DETECTION_CONFIDENCE", "80"))
+MATCH_API_PRIORITY = os.getenv("MATCH_API_PRIORITY", "high").lower()
